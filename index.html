@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="theme-color" content="#070b11" />
+  <meta name="description" content="The Last Birthday — a cinematic 3D first-person branching horror game set in an abandoned children's party palace in 1983." />
+  <title>THE LAST BIRTHDAY — A First-Person Horror Story</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div id="world" aria-label="First-person 3D abandoned party palace"></div>
+  <div class="filmgrain" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div id="glitch" aria-hidden="true"></div>
+  <div id="flash" aria-hidden="true"></div>
+  <div id="blood" aria-hidden="true"></div>
+
+  <main id="start-screen" class="screen visible" aria-labelledby="game-title">
+    <div class="start-grid" aria-hidden="true"></div>
+    <div class="start-card">
+      <div class="eyebrow"><span class="rec-dot"></span> OCTOBER 27, 1983 <span class="slash">/</span> HOLLOWBROOK, MAINE</div>
+      <div class="serial">WCK–1973 · INCIDENT 11/11</div>
+      <h1 id="game-title">THE LAST<br><em>BIRTHDAY</em><span class="title-period">.</span></h1>
+      <p class="tagline">TEN YEARS EMPTY.<br>THE MUSIC NEVER STOPPED.</p>
+      <p class="start-copy">In 1973, eleven children attended the last party at Candlewick’s. Only ten were found. Tonight, a cassette arrives with your brother’s voice — still seven years old.</p>
+      <div class="start-actions">
+        <button id="start-btn" class="primary-btn">ENTER THE PALACE <span aria-hidden="true">↗</span></button>
+        <button id="story-btn" class="outline-btn">THE INCIDENT <span aria-hidden="true">＋</span></button>
+      </div>
+      <div class="start-meta"><span>FIRST-PERSON 3D</span><span>BRANCHING STORY</span><span>6 ENDINGS</span></div>
+    </div>
+    <div class="start-right" aria-hidden="true"><span>PLEASE DO NOT ANSWER THE SONG.</span><b>11:11</b><small>THE COUNT WAS WRONG.</small></div>
+    <div class="start-bottom"><span>HEADPHONES RECOMMENDED</span><span>DESKTOP + TOUCH CONTROLS</span><span>© CANDLEWICK ARCHIVES 1983</span></div>
+  </main>
+
+  <section id="hud" class="hidden" aria-label="Game heads up display">
+    <div class="hud-top">
+      <div class="hud-title"><span class="hud-symbol">✳</span><span>THE LAST BIRTHDAY<small>OCT 27 · 1983</small></span></div>
+      <div class="hud-status"><span id="location-label">ENTRANCE LOBBY</span><span id="time-label">11:11 PM</span><button id="menu-btn" class="icon-btn" title="Pause / settings" aria-label="Pause">Ⅱ</button></div>
+    </div>
+    <div class="hud-left">
+      <div class="hud-kicker">CURRENT OBJECTIVE</div>
+      <div id="objective" class="objective">FOLLOW THE MUSIC. FIND THE TRUTH.</div>
+      <div id="objective-detail" class="objective-detail">Explore Candlewick's. Recover the missing recordings.</div>
+      <div class="hud-divider"></div>
+      <div class="count-row"><span>ARCHIVE EVIDENCE</span><strong id="evidence-count">00 / 03</strong></div>
+      <div class="progress-track"><div id="evidence-progress" class="progress-fill"></div></div>
+      <div class="count-row battery-row"><span>FLASHLIGHT</span><strong id="battery-count">100%</strong></div>
+      <div class="progress-track battery-track"><div id="battery-progress" class="progress-fill"></div></div>
+      <div class="count-row nerve-row"><span>NERVE</span><strong id="nerve-count">● ● ●</strong></div>
+      <div class="progress-track stamina-track"><div id="stamina-progress" class="progress-fill"></div></div>
+    </div>
+    <div class="hud-mobile-tools"><button id="touch-journal" aria-label="Open journal">NOTES</button><button id="touch-map" aria-label="Open map">MAP</button></div>
+    <div class="hud-right"><span id="recording-light" class="rec-dot"></span><span id="rec-label">REC ●</span><span class="hud-timestamp">CAM 03 — 1983</span></div>
+    <div id="crosshair" aria-hidden="true"><div></div><div></div></div>
+    <button id="interact-prompt" class="interact-prompt hidden"><span class="keycap">E</span><span id="interact-label">INTERACT</span><span class="prompt-arrow">↗</span></button>
+    <div id="subtitle" class="subtitle hidden" role="status"></div>
+    <div id="message-feed" class="message-feed" role="status"></div>
+    <div id="hiding-status" class="hiding-status hidden">◉ HOLD YOUR BREATH · STAY STILL</div>
+    <div class="hud-bottom"><span id="control-hint">WASD MOVE · MOUSE LOOK · E INTERACT · SHIFT RUN · F FLASHLIGHT</span><span>J JOURNAL <i>·</i> M MAP</span></div>
+    <div id="mobile-controls" aria-label="Touch movement controls">
+      <div id="joystick-base"><div id="joystick-knob"></div></div>
+      <div class="mobile-right"><button id="touch-interact" class="touch-action">USE</button><button id="touch-run" class="touch-action smaller">RUN</button><button id="touch-flash" class="touch-action smaller">LIGHT</button></div>
+    </div>
+  </section>
+
+  <div id="dialog-overlay" class="dialog-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
+    <div class="dialog-panel"><div id="dialog-type" class="eyebrow">ARCHIVED RECORD</div><h2 id="dialog-title">TITLE</h2><p id="dialog-body"></p><div id="dialog-choices" class="dialog-choices"></div><div class="dialog-footer">YOUR CHOICES LEAVE MARKS. SOME CANNOT BE UNDONE.</div></div>
+  </div>
+
+  <div id="journal-overlay" class="ui-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="journal-title"><div class="ui-panel"><button class="close-ui" data-close="journal-overlay" aria-label="Close">✕</button><div class="eyebrow">EVIDENCE COLLECTION / 1983</div><h2 id="journal-title">JUNE'S JOURNAL</h2><div id="journal-content" class="journal-content"></div><p class="hint-text">PRESS J OR ESC TO RETURN</p></div></div>
+  <div id="map-overlay" class="ui-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="map-title"><div class="ui-panel map-panel"><button class="close-ui" data-close="map-overlay" aria-label="Close">✕</button><div class="eyebrow">CANDLEWICK’S / FIRE ESCAPE BLUEPRINT</div><h2 id="map-title">THE FLOOR PLAN</h2><div class="map-layout"><div class="map-row"><div>MANAGER'S OFFICE</div><div>BACK HALL</div><div>MAINTENANCE</div></div><div class="map-row"><div>PARTY ROOM</div><div>MAIN HALL</div><div>GAME ARCADE</div></div><div class="map-row lobby-row"><div>ENTRANCE / LOBBY<br><span>YOU ARRIVED HERE</span></div></div><div class="map-row basement-row"><div>↓ BACKSTAGE / BIRTHDAY STAGE (LOCKED)</div></div></div><p class="hint-text">THE FLOOR PLAN WAS DRAWN IN 1972. THE BUILDING MAY NOT OBEY IT.</p></div></div>
+  <div id="pause-overlay" class="ui-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="pause-title"><div class="ui-panel pause-panel"><div class="eyebrow">TAPE PAUSED / 1983</div><h2 id="pause-title">STAY QUIET.</h2><p class="pause-copy">It hears you when you answer.</p><button id="resume-btn" class="primary-btn">RESUME <span>↗</span></button><button id="mute-btn" class="outline-btn">SOUND: ON</button><button id="sensitivity-btn" class="outline-btn">MOUSE SENSITIVITY: NORMAL</button><button id="restart-btn" class="outline-btn">RESTART NIGHT ↺</button></div></div>
+  <div id="ending-overlay" class="ending-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="ending-title"><div class="ending-inner"><div id="ending-number" class="eyebrow">ENDING 01 / 06</div><div class="ending-line"></div><h2 id="ending-title">THE LAST GUEST</h2><p id="ending-description"></p><div id="ending-summary" class="ending-summary"></div><div class="ending-actions"><button id="replay-btn" class="primary-btn">PLAY AGAIN ↺</button><button id="endings-btn" class="outline-btn">VIEW ENDINGS</button></div><div id="ending-collection" class="ending-collection"></div><span class="ending-bottom">THE RECORDING HAS ENDED. OR HAS IT?</span></div></div>
+  <noscript>This game requires JavaScript to run.</noscript>
+  <script type="module" src="./script.js"></script>
+</body>
+</html>
